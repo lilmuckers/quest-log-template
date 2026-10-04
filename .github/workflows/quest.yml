@@ -1,0 +1,19 @@
+# Checks every change to data/ with the same rules as the Quest Log app.
+name: Quest data
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sfo quest.py https://tasks.patrick-mckinley.com/skills/quest-log/scripts/quest.py
+      - run: python3 quest.py validate .
+      - name: What this pull request removes
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin "${{ github.base_ref }}"
+          python3 quest.py changes --git "origin/${{ github.base_ref }}" . --warn
