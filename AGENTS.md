@@ -11,3 +11,6 @@ AI assistants: before reading or changing anything, load the Quest Log skill and
 
 Validate the whole tree (`python3 quest.py validate .`) before you commit. Never edit `stats` on
 a level: the app maintains it.
+
+Don't edit `.github/workflows/quest.yml`, the `notify.devices` list in `data/automation.json` or
+the repo's secrets: the Quest Log app manages them (Settings → Automation).
