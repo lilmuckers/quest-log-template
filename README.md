@@ -20,10 +20,11 @@ That's it. Every tick, step and level you add is saved as a small commit in `dat
 ```
 data/
   settings.json                 repo-wide settings (optional; choose a default hero here)
+  automation.json               what the Quest Log workflow does (managed in the app)
   <project>/project.json        one folder per project, appears once you make one
   <project>/<world>/world.json
   <project>/<world>/<level>.json
-.github/workflows/quest.yml     checks every change against the Quest Log schemas
+.github/workflows/quest.yml     the Quest Log workflow (written by the app, don't edit it)
 AGENTS.md                       points AI assistants at the Quest Log skill
 ```
 
@@ -38,9 +39,13 @@ Want help planning? Point Claude, ChatGPT or another assistant at this repo and 
 format, validates its own changes and can open a pull request for you to review. `AGENTS.md` tells
 assistants that read repo instructions where to find it.
 
-## The check on every change
+## Automation
 
-`.github/workflows/quest.yml` downloads the Quest Log helper and validates `data/` on every push
-and pull request. On a pull request it also lists what the change adds, changes and removes, so an
-accidental deletion stands out. You can delete the workflow if you don't want it; the app doesn't
-need it.
+`.github/workflows/quest.yml` runs the Quest Log action. Out of the box it validates `data/` on
+every push and pull request; on a pull request it also comments with what the change adds,
+changes and removes, so an accidental deletion stands out. Notifications are off, so the workflow
+has no schedule and uses no Actions minutes between changes.
+
+Manage it from ⚙ Settings → **Automation** in the app, which keeps the workflow in step with
+`data/automation.json`. Don't edit the workflow by hand; the app rewrites it. You can delete it if
+you don't want it; the app doesn't need it.
