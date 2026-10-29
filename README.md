@@ -49,3 +49,30 @@ has no schedule and uses no Actions minutes between changes.
 Manage it from ⚙ Settings → **Automation** in the app, which keeps the workflow in step with
 `data/automation.json`. Don't edit the workflow by hand; the app rewrites it. You can delete it if
 you don't want it; the app doesn't need it.
+
+## Notifications
+
+The workflow can also send notifications to your phone and computer: when a level's time-box
+is nearly up or blown, on your weekly review day, and when a pull request lands in the Warp Zone,
+fails its check or is fixed. It runs in this repo and sends them itself.
+
+To turn them on, open ⚙ Settings → **Automation** in the app, switch on **Notifications** and
+press **Turn on for this device**. Do that in each browser you want them in; each device keeps
+its own switches, timezone and review day.
+
+- **iPhone and iPad:** add Quest Log to the Home Screen first (Share → Add to Home Screen, iOS
+  16.4 or later) and turn them on from that app.
+- **The first device** makes this repo's key pair: a `QUEST_VAPID_PRIVATE_KEY` Actions secret
+  and a public key in `data/automation.json`, next to the device. The app manages both; leave
+  them be.
+- **Time-box and review notifications** need a schedule, so turning them on adds one to the
+  workflow (every 3 hours by default; 6h, 1h or off in Settings). GitHub often starts scheduled
+  runs late, so expect them a little after the moment. On a private repo every 3 hours is about
+  240 Actions minutes a month.
+- **Public repos:** anyone can see each device's push address in `data/automation.json`. Nobody
+  can send to it without the secret, and pushes are encrypted, so the risk is low. GitHub pauses
+  scheduled workflows after 60 days with no commits; any edit in the app starts them again.
+
+More, including what each notification says and what to check if nothing arrives:
+[Push notifications](https://github.com/lilmuckers/gamify-todo#push-notifications) in the Quest
+Log README.
